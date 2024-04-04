@@ -1,18 +1,38 @@
 {
   "name": "tripshot_backend",
+  "version": "0.1.0",
+  "description": "TripShot is a social network about trips and posts",
+  "main": "index.js",
   "author": "Juan Carlos Cuadrado Gracia",
+  "license": "ISC",
   "type": "module",
-  "version": "1.0.0",
-  "description": "TripShot is a social network about trips and posts.",
-  "main": "dist/index.js",
+  "apiDoc": {
+    "name": "TripShot",
+    "version": "0.1.0",
+    "description": "Interfaces documentation of TripShot (social network about trips and posts)",
+    "title": "TripShot interfaces documentation",
+    "url": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JCCG-code/tripshot_backend.git"
+  },
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon ./index.js",
+    "start": "node ./index.js",
+    "doc": "apidoc-markdown -i routes -o doc/doc.md"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.19.2"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0"
+    "apidoc-markdown": "^7.3.2",
+    "eslint": "^8.57.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "nodemon": "^3.1.0",
+    "prettier": "^3.2.5"
   }
 }

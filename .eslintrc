@@ -1,0 +1,31 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2022": true
+  },
+  "parserOptions": {
+    "parser": "@babel/eslint-parser",
+    "requireConfigFile": false,
+    "ecmaVersion": 2022,
+    "sourceType": "module"
+  },
+  "extends": ["eslint:recommended", "google", "plugin:prettier/recommended"],
+  // custom rules
+  "rules": {
+    "no-unused-vars": ["error", { "args": "all", "argsIgnorePattern": "^_" }],
+    "new-cap": ["error", { "capIsNewExceptions": ["express.Router"] }]
+  },
+  "overrides": [
+    {
+      "files": ["tests/*/"],
+      "rules": {
+        "no-undef": "off"
+      }
+    }
+  ],
+  "globals": {
+    "process": "readonly"
+  }
+}

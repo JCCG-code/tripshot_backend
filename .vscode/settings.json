@@ -1,0 +1,10 @@
+{
+  "files.eol": "\n",
+  "editor.rulers": [80],
+  "editor.tabSize": 2,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 300000,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "npm.packageManager": "pnpm"
+}
