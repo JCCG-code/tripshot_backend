@@ -1,11 +1,12 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
-import cors from 'cors'
+// import cors from 'cors'
 
 dotenv.config()
 
 // Routes
+import authRouter from './routers/auth.router.js'
 
 // Initializations
 const app = express()
@@ -14,14 +15,15 @@ const port = process.env.PORT
 // Middewares
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(
-  cors({
-    origin: (callback) => callback(null, true),
-    credentials: true
-  })
-)
+// app.use(
+//   cors({
+//     origin: (callback) => callback(null, true),
+//     credentials: true
+//   })
+// )
 
-// Routes
+// Using routes
+app.use('/api/auth', authRouter)
 
 // Server and database are listening
 mongoose
