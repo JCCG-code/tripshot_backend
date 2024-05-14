@@ -2,6 +2,7 @@
 import express from 'express'
 // Local files
 import * as usersController from '../controllers/users.controller.js'
+import { verifyToken } from '../middlewares/verifyToken.js'
 
 const router = express.Router()
 
@@ -16,7 +17,7 @@ const router = express.Router()
  * Some description here
  * and here
  */
-router.get('/:userId', usersController.getUser)
+router.get('/:userId', verifyToken, usersController.getUser)
 
 /**
  * @apiGroup Users
@@ -25,64 +26,64 @@ router.get('/:userId', usersController.getUser)
  * Some description here
  * and here
  */
-router.put('/:userId', usersController.updateUser)
+router.put('/:userId', verifyToken, usersController.updateUser)
 
-/**
- * @apiGroup Users
- * @api {DELETE} /api/users/:userId Delete an user
- * @apiDescription
- * Some description here
- * and here
- */
-router.delete('/:userId', usersController.updateUser)
+// /**
+//  * @apiGroup Users
+//  * @api {DELETE} /api/users/:userId Delete an user
+//  * @apiDescription
+//  * Some description here
+//  * and here
+//  */
+// router.delete('/:userId', verifyToken, usersController.updateUser)
 
-/**
- * @apiGroup Users
- * @api {GET} /api/users/:userId/posts Get all posts from an user
- * @apiDescription
- * Some description here
- * and here
- */
-router.get('/:userId/posts', usersController.getUserPosts)
+// /**
+//  * @apiGroup Users
+//  * @api {GET} /api/users/:userId/posts Get all posts from an user
+//  * @apiDescription
+//  * Some description here
+//  * and here
+//  */
+// router.get('/:userId/posts', verifyToken, usersController.getUserPosts)
 
-/**
- * --------------------------- USER FOLLOWS ---------------------------
- */
+// /**
+//  * --------------------------- USER FOLLOWS ---------------------------
+//  */
 
-/**
- * @apiGroup Users
- * @api {GET} /api/users/:userId/followers Get followers from an user
- * @apiDescription
- * Some description here
- * and here
- */
-router.get('/:userId/followers', usersController.getFollowers)
+// /**
+//  * @apiGroup Users
+//  * @api {GET} /api/users/:userId/followers Get followers from an user
+//  * @apiDescription
+//  * Some description here
+//  * and here
+//  */
+// router.get('/:userId/followers', verifyToken, usersController.getFollowers)
 
-/**
- * @apiGroup Users
- * @api {GET} /api/users/:userId/followers Get following from an user
- * @apiDescription
- * Some description here
- * and here
- */
-router.get('/:userId/following', usersController.getFollowing)
+// /**
+//  * @apiGroup Users
+//  * @api {GET} /api/users/:userId/followers Get following from an user
+//  * @apiDescription
+//  * Some description here
+//  * and here
+//  */
+// router.get('/:userId/following', verifyToken, usersController.getFollowing)
 
-/**
- * @apiGroup Users
- * @api {POST} /api/users/:userId/follow Follow an user
- * @apiDescription
- * Some description here
- * and here
- */
-router.post('/:userId/follow', usersController.newFollow)
+// /**
+//  * @apiGroup Users
+//  * @api {POST} /api/users/:userId/follow Follow an user
+//  * @apiDescription
+//  * Some description here
+//  * and here
+//  */
+// router.post('/:userId/follow', verifyToken, usersController.newFollow)
 
-/**
- * @apiGroup Users
- * @api {DELETE} /api/users/:userId/follow Leave to follow an user
- * @apiDescription
- * Some description here
- * and here
- */
-router.delete('/:userId/follow', usersController.leaveFollow)
+// /**
+//  * @apiGroup Users
+//  * @api {DELETE} /api/users/:userId/follow Leave to follow an user
+//  * @apiDescription
+//  * Some description here
+//  * and here
+//  */
+// router.delete('/:userId/follow', verifyToken, usersController.leaveFollow)
 
 export default router

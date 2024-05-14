@@ -7,6 +7,7 @@ dotenv.config()
 
 // Routes
 import authRouter from './routers/auth.router.js'
+import usersRouter from './routers/users.router.js'
 
 // Initializations
 const app = express()
@@ -24,6 +25,7 @@ app.use(express.urlencoded({ extended: true }))
 
 // Using routes
 app.use('/api/auth', authRouter)
+app.use('/api/users', usersRouter)
 
 // Server and database are listening
 mongoose
