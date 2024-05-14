@@ -13,4 +13,13 @@ import * as authController from '../controllers/auth.controller.js'
  */
 router.post('/register', authController.register)
 
+/**
+ * @apiGroup Auth
+ * @api {POST} /api/auth/login User login
+ * @apiDescription
+ * Some description here
+ * and here
+ */
+router.post('/login', authController.login)
+
 export default router

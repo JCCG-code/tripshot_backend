@@ -4,12 +4,18 @@ import { Schema, model } from 'mongoose'
 // Schema creation
 const postSchema = new Schema(
   {
-    link: {
-      type: String,
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
       required: true
     },
     description: {
-      type: String
+      type: String,
+      required: true
+    },
+    imageUrl: {
+      type: String,
+      required: true
     },
     place: {
       type: String,
@@ -20,7 +26,14 @@ const postSchema = new Schema(
       required: true
     },
 
-    // Comments of the post
+    // Likes collection
+    likes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+      }
+    ],
+    // Comments collection
     comments: [
       {
         type: Schema.Types.ObjectId,
