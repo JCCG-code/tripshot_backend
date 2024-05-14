@@ -1,3 +1,4 @@
+// Local files
 import AuthService from '../services/auth.service.js'
 
 /**
@@ -7,14 +8,29 @@ import AuthService from '../services/auth.service.js'
  * @return {json} adawd
  */
 export const register = async (req, res) => {
-  // Request body error
   const { body } = req
-  if (!body.username || !body.email || !body.password) {
+  // Check body parameters
+  if (
+    !body.username ||
+    !body.email ||
+    !body.password ||
+    !body.passwordConfirm
+  ) {
     res.status(400).send({
       status: 'FAILED',
       data: {
         error:
-          "One of the following keys is missing in request body: 'username', 'email' or 'password'"
+          "One of the following keys is missing in request body: 'username', 'email', 'password' or 'passwordConfirm'"
+      }
+    })
+    return
+  }
+  // Check matching password
+  if (body.password !== body.passwordConfirm) {
+    res.status(400).send({
+      status: 'FAILED',
+      data: {
+        error: 'Passwords do not match'
       }
     })
     return
