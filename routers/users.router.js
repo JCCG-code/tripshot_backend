@@ -28,14 +28,14 @@ router.get('/:userId', verifyToken, usersController.getUser)
  */
 router.put('/:userId', verifyToken, usersController.updateUser)
 
-// /**
-//  * @apiGroup Users
-//  * @api {DELETE} /api/users/:userId Delete an user
-//  * @apiDescription
-//  * Some description here
-//  * and here
-//  */
-// router.delete('/:userId', verifyToken, usersController.updateUser)
+/**
+ * @apiGroup Users
+ * @api {DELETE} /api/users/:userId Delete an user
+ * @apiDescription
+ * Some description here
+ * and here
+ */
+router.delete('/:userId', verifyToken, usersController.deleteUser)
 
 // /**
 //  * @apiGroup Users

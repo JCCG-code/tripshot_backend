@@ -74,6 +74,40 @@ class usersService {
       })
     }
   }
+
+  /**
+   * @description Allows to get an user from database
+   * @author Juan Carlos Cuadrado Gracia <jccuadradogracia@gmail.com>
+   * @param {String} userId - User received
+   * @return {Object} - Returns the user saved if no errors. Throws error in other case
+   * @memberof AuthService
+   */
+  async deleteUser(userId) {
+    try {
+      // Request user to database
+      const resUser = await User.findOne({ _id: userId })
+      if (!resUser) {
+        throw new HttpError({
+          status: 400,
+          message: 'This userId does not match any user in our system.'
+        })
+      }
+      // Delete user
+      const deletedUser = await User.findByIdAndDelete(resUser._id)
+      // Create object to send
+      const userData = {
+        username: deletedUser.username,
+        email: deletedUser.email
+      }
+      // Send response
+      return { userData }
+    } catch (error) {
+      throw new HttpError({
+        status: error?.status || 500,
+        message: error?.message || error
+      })
+    }
+  }
 }
 
 export default usersService

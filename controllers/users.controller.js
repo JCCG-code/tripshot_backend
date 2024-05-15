@@ -96,3 +96,37 @@ export const updateUser = async (req, res) => {
       .send({ status: 'FAILED', data: { error: err?.message || err } })
   }
 }
+
+/**
+ * @description Delete an user
+ * @author Juan Carlos Cuadrado Gracia <jccuadradogracia@gmail.com>
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ * @return {Object} User requested
+ */
+export const deleteUser = async (req, res) => {
+  const { params } = req
+  // Check request params parameters
+  if (!params.userId) {
+    res.status(400).send({
+      status: 'FAILED',
+      data: {
+        error: 'User id not provided'
+      }
+    })
+    return
+  }
+  const userId = req.params.userId
+  try {
+    // Class service instance
+    const usersService = new UsersService()
+    const deleteUser = await usersService.deleteUser(userId)
+
+    // All correct
+    res.status(201).send({ status: 'OK', data: deleteUser })
+  } catch (err) {
+    res
+      .status(err?.status || 500)
+      .send({ status: 'FAILED', data: { error: err?.message || err } })
+  }
+}
