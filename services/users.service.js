@@ -55,7 +55,18 @@ class usersService {
       // Save user and update
       await User.findByIdAndUpdate(userId, newUserData)
       const updatedUser = await User.findOne({ _id: userId })
-      return { updatedUser }
+      // Create object to send
+      const userData = {
+        username: updatedUser.username,
+        email: updatedUser.email,
+        profilePicture: updatedUser.profilePicture,
+        bio: updatedUser.bio,
+        followers: updatedUser.followers,
+        following: updatedUser.following,
+        role: updatedUser.role
+      }
+      // Return updated user
+      return { userData }
     } catch (error) {
       throw new HttpError({
         status: error?.status || 500,

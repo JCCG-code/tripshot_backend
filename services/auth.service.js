@@ -75,6 +75,7 @@ class AuthService {
         email: user.email
       })
       // User not registered or incorrect password
+      console.log(user.password, resUser.password)
       if (
         !resUser ||
         !(await bcryptjs.compare(user.password, resUser.password))
