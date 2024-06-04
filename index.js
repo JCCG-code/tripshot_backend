@@ -1,6 +1,8 @@
+// Packages
 import express from 'express'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
+import morgan from 'morgan'
 // import cors from 'cors'
 
 dotenv.config()
@@ -15,6 +17,7 @@ const port = process.env.PORT
 
 // Middewares
 app.use(express.json())
+app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: true }))
 // app.use(
 //   cors({
