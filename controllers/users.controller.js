@@ -42,7 +42,7 @@ export const getUser = async (req, res) => {
  * @author Juan Carlos Cuadrado Gracia <jccuadradogracia@gmail.com>
  * @param {object} req - Request object
  * @param {object} res - Response object
- * @return {Object} User requested
+ * @return {Object} User updated
  */
 export const updateUser = async (req, res) => {
   const { params } = req
@@ -102,7 +102,7 @@ export const updateUser = async (req, res) => {
  * @author Juan Carlos Cuadrado Gracia <jccuadradogracia@gmail.com>
  * @param {object} req - Request object
  * @param {object} res - Response object
- * @return {Object} User requested
+ * @return {Object} User deleted
  */
 export const deleteUser = async (req, res) => {
   const { params } = req

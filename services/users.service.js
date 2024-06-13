@@ -35,7 +35,7 @@ class usersService {
   }
 
   /**
-   * @description Allows to get an user from database
+   * @description Allows to update an user
    * @author Juan Carlos Cuadrado Gracia <jccuadradogracia@gmail.com>
    * @param {String} userId - User id received
    * @param {Object} newUserData - The updated user
