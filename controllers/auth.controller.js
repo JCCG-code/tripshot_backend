@@ -9,7 +9,6 @@ import AuthService from '../services/auth.service.js'
  */
 export const register = async (req, res) => {
   const { body } = req
-  console.log(body)
   // Check body parameters
   if (
     !body.username ||

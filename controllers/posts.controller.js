@@ -32,7 +32,6 @@ export const newPost = async (req, res) => {
   const { body } = req
   const { files } = req
   // Check body parameters
-  console.log(files)
   if (
     !body.userId ||
     !body.description ||
