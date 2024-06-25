@@ -44,9 +44,9 @@ class AuthService {
         following: null,
         role: ['client']
       }
-      await new User(newUser).save()
+      const userSaved = await new User(newUser).save()
       // Generate token
-      const token = jwt.sign({ id: newUser._id }, 'secret', {
+      const token = jwt.sign({ id: userSaved._id }, 'secret', {
         expiresIn: 86400
       })
       // Delete unnecessary params
@@ -100,6 +100,45 @@ class AuthService {
       }
       // Send response
       return { userLogged, token }
+    } catch (error) {
+      throw new HttpError({
+        status: error?.status || 500,
+        message: error?.message || error
+      })
+    }
+  }
+
+  /**
+   * @description Allows to get an user based on token
+   * @author Juan Carlos Cuadrado Gracia <jccuadradogracia@gmail.com>
+   * @param {string} token - Token received
+   * @return {Object} - Returns the user if no errors. Throws error in other case
+   * @memberof AuthService
+   */
+  async user(token) {
+    try {
+      // Extract user based on token provided
+      const decoded = jwt.verify(token, 'secret')
+      const userLogged = await User.findOne({ _id: decoded.id })
+      // Token does not match with any user
+      if (!userLogged) {
+        throw new HttpError({
+          status: 400,
+          message: `Token received but any user has been found in our system.`
+        })
+      }
+      // Create user logged instance
+      const user = {
+        username: userLogged.username,
+        email: userLogged.email,
+        profilePicture: userLogged.profilePicture,
+        bio: userLogged.bio,
+        followers: userLogged.followers,
+        following: userLogged.following,
+        role: userLogged.role
+      }
+      // Send response
+      return { user }
     } catch (error) {
       throw new HttpError({
         status: error?.status || 500,

@@ -22,4 +22,13 @@ router.post('/register', authController.register)
  */
 router.post('/login', authController.login)
 
+/**
+ * @apiGroup Auth
+ * @api {POST} /api/auth/user Get user based on token
+ * @apiDescription
+ * Some description here
+ * and here
+ */
+router.post('/user', authController.user)
+
 export default router

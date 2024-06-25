@@ -9,6 +9,7 @@ import AuthService from '../services/auth.service.js'
  */
 export const register = async (req, res) => {
   const { body } = req
+  console.log(body)
   // Check body parameters
   if (
     !body.username ||
@@ -20,7 +21,7 @@ export const register = async (req, res) => {
       status: 'FAILED',
       data: {
         error:
-          "One of the following keys is missing in request body: 'username', 'email', 'password' or 'passwordConfirm'"
+          "One of the following keys is missing: 'username', 'email', 'password' or 'passwordConfirm'"
       }
     })
     return
@@ -68,8 +69,7 @@ export const login = async (req, res) => {
     res.status(400).send({
       status: 'FAILED',
       data: {
-        error:
-          "One of the following keys is missing in request body: 'email', 'password'"
+        error: "One of the following keys is missing: 'email', 'password'"
       }
     })
     return
@@ -86,6 +86,39 @@ export const login = async (req, res) => {
 
     // All correct
     res.status(201).send({ status: 'OK', data: login })
+  } catch (err) {
+    res
+      .status(err?.status || 500)
+      .send({ status: 'FAILED', data: { error: err?.message || err } })
+  }
+}
+
+/**
+ * @description User controller to get user based on token provided
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ * @return {json} adawd
+ */
+export const user = async (req, res) => {
+  const { body } = req
+  // Check body parameters
+  if (!body.token) {
+    res.status(400).send({
+      status: 'FAILED',
+      data: {
+        error: 'The user token is not provided'
+      }
+    })
+    return
+  }
+  const token = body.token
+  try {
+    // Class service instance
+    const authService = new AuthService()
+    const getUser = await authService.user(token)
+
+    // All correct
+    res.status(201).send({ status: 'OK', data: getUser })
   } catch (err) {
     res
       .status(err?.status || 500)
