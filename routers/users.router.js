@@ -1,10 +1,12 @@
 // Packages
 import express from 'express'
+
+const router = express.Router()
+
 // Local files
 import * as usersController from '../controllers/users.controller.js'
 import { verifyToken } from '../middlewares/verifyToken.js'
-
-const router = express.Router()
+import multer from '../libs/multer.js'
 
 /**
  * --------------------------- USER MANAGEMENT ---------------------------
@@ -26,7 +28,12 @@ router.get('/:userId', verifyToken, usersController.getUser)
  * Some description here
  * and here
  */
-router.put('/:userId', verifyToken, usersController.updateUser)
+router.put(
+  '/:userId',
+  verifyToken,
+  multer.array('profilePicture'),
+  usersController.updateUser
+)
 
 /**
  * @apiGroup Users

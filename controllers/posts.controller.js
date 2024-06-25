@@ -35,7 +35,7 @@ export const newPost = async (req, res) => {
   if (
     !body.userId ||
     !body.description ||
-    files.length === 0 ||
+    !files ||
     !body.place ||
     !body.country
   ) {
@@ -49,14 +49,16 @@ export const newPost = async (req, res) => {
     return
   }
   // Check file count
-  if (files.length > 4) {
-    res.status(400).send({
-      status: 'FAILED',
-      data: {
-        error: 'Only a maximum of 4 files are allowed'
-      }
-    })
-    return
+  if (files) {
+    if (files.length > 4) {
+      res.status(400).send({
+        status: 'FAILED',
+        data: {
+          error: 'Only a maximum of 4 files are allowed'
+        }
+      })
+      return
+    }
   }
   const postToSave = {
     user: body.userId,

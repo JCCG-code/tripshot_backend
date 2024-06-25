@@ -27,6 +27,9 @@ app.use('/api/auth', authRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/posts', postsRouter)
 
+// Static files
+app.use('/api/uploads', express.static('uploads'))
+
 // Server and database are listening
 mongoose
   .connect(process.env.MONGODB_URI)

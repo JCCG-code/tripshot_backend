@@ -51,6 +51,8 @@ class AuthService {
       })
       // Delete unnecessary params
       delete newUser.password
+      // Add user id
+      newUser.id = userSaved._id
       // Send response
       return { newUser, token }
     } catch (error) {
@@ -90,6 +92,7 @@ class AuthService {
       })
       // Create user logged instance
       const userLogged = {
+        id: resUser._id,
         username: resUser.username,
         email: resUser.email,
         profilePicture: resUser.profilePicture,
@@ -129,6 +132,7 @@ class AuthService {
       }
       // Create user logged instance
       const user = {
+        id: userLogged._id,
         username: userLogged.username,
         email: userLogged.email,
         profilePicture: userLogged.profilePicture,

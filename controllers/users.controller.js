@@ -47,6 +47,7 @@ export const getUser = async (req, res) => {
 export const updateUser = async (req, res) => {
   const { params } = req
   const { body } = req
+  const { files } = req
   // Check request params parameters
   if (!params.userId) {
     res.status(400).send({
@@ -58,13 +59,7 @@ export const updateUser = async (req, res) => {
     return
   }
   // Check body parameters
-  if (
-    !body.username &&
-    !body.email &&
-    !body.password &&
-    !body.profilePicture &&
-    !body.bio
-  ) {
+  if (!body.username && !body.email && !files && !body.password && !body.bio) {
     res.status(400).send({
       status: 'FAILED',
       data: {
@@ -72,6 +67,18 @@ export const updateUser = async (req, res) => {
       }
     })
     return
+  }
+  // Check file count
+  if (files) {
+    if (files.length > 1) {
+      res.status(400).send({
+        status: 'FAILED',
+        data: {
+          error: 'Only one file is allowed'
+        }
+      })
+      return
+    }
   }
   // We save sanitized data
   const userId = req.params.userId
@@ -83,6 +90,11 @@ export const updateUser = async (req, res) => {
       await bcryptjs.genSalt(10)
     )
   }
+  // Check if profile picture is updated
+  if (files.length > 0) {
+    newUserData.profilePicture = files[0].filename
+  }
+  console.log(newUserData)
   try {
     // Class service instance
     const usersService = new UsersService()
