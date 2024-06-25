@@ -23,6 +23,13 @@ router.post('/register', authController.register)
 router.post('/login', authController.login)
 
 /**
+ * search http://localhost:5001/api/auth/allWorking
+ */
+router.get('/allWorking', (_req, res) => {
+  res.status(201).send({ status: 'OK', message: 'hello from tripshot API :)' })
+})
+
+/**
  * @apiGroup Auth
  * @api {POST} /api/auth/user Get user based on token
  * @apiDescription
