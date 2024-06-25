@@ -90,11 +90,14 @@ export const updateUser = async (req, res) => {
       await bcryptjs.genSalt(10)
     )
   }
+  // Check is password is empty
+  if (body.password === '') {
+    delete newUserData.password
+  }
   // Check if profile picture is updated
   if (files.length > 0) {
     newUserData.profilePicture = files[0].filename
   }
-  console.log(newUserData)
   try {
     // Class service instance
     const usersService = new UsersService()
