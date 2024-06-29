@@ -47,7 +47,7 @@ class AuthService {
       const userSaved = await new User(newUser).save()
       // Generate token
       const token = jwt.sign({ id: userSaved._id }, 'secret', {
-        expiresIn: 86400
+        expiresIn: '1h'
       })
       // Delete unnecessary params
       delete newUser.password
@@ -88,7 +88,7 @@ class AuthService {
       }
       // Generate token
       const token = jwt.sign({ id: resUser._id }, 'secret', {
-        expiresIn: 86400
+        expiresIn: '1h'
       })
       // Create user logged instance
       const userLogged = {

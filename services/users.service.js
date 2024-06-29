@@ -2,9 +2,10 @@
 import User from '../models/User.js'
 // Errors
 import HttpError from '../errors/HttpError.js'
+import mongoose from 'mongoose'
 
 /**
- *
+ * Class for managing usersService
  */
 class usersService {
   /**
@@ -16,12 +17,17 @@ class usersService {
    */
   async getUser(userId) {
     try {
+      let resUser = null
       // Request user to database
-      const resUser = await User.findOne({ _id: userId })
+      if (mongoose.Types.ObjectId.isValid(userId)) {
+        resUser = await User.findOne({ _id: userId })
+      } else {
+        resUser = await User.findOne({ username: userId })
+      }
       if (!resUser) {
         throw new HttpError({
           status: 400,
-          message: 'This userId does not match any user in our system.'
+          message: 'This profile does not match with any profile in our system.'
         })
       }
       // Send response
@@ -57,6 +63,7 @@ class usersService {
       const updatedUser = await User.findOne({ _id: userId })
       // Create object to send
       const userData = {
+        id: updatedUser._id,
         username: updatedUser.username,
         email: updatedUser.email,
         profilePicture: updatedUser.profilePicture,
