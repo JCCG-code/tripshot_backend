@@ -44,45 +44,45 @@ router.put(
  */
 router.delete('/:userId', verifyToken, usersController.deleteUser)
 
-// /**
-//  * @apiGroup Users
-//  * @api {GET} /api/users/:userId/posts Get all posts from an user
-//  * @apiDescription
-//  * Some description here
-//  * and here
-//  */
-// router.get('/:userId/posts', verifyToken, usersController.getUserPosts)
+/**
+ * @apiGroup Users
+ * @api {GET} /api/users/:userId/posts Get all posts from an user
+ * @apiDescription
+ * Some description here
+ * and here
+ */
+router.get('/:userId/posts', verifyToken, usersController.getUserPosts)
 
-// /**
-//  * --------------------------- USER FOLLOWS ---------------------------
-//  */
+/**
+ * --------------------------- USER FOLLOWS ---------------------------
+ */
 
-// /**
-//  * @apiGroup Users
-//  * @api {GET} /api/users/:userId/followers Get followers from an user
-//  * @apiDescription
-//  * Some description here
-//  * and here
-//  */
-// router.get('/:userId/followers', verifyToken, usersController.getFollowers)
+/**
+ * @apiGroup Users
+ * @api {GET} /api/users/:userId/followers Get followers from an user
+ * @apiDescription
+ * Some description here
+ * and here
+ */
+router.get('/:userId/followers', verifyToken, usersController.getFollowers)
 
-// /**
-//  * @apiGroup Users
-//  * @api {GET} /api/users/:userId/followers Get following from an user
-//  * @apiDescription
-//  * Some description here
-//  * and here
-//  */
-// router.get('/:userId/following', verifyToken, usersController.getFollowing)
+/**
+ * @apiGroup Users
+ * @api {GET} /api/users/:userId/followers Get following from an user
+ * @apiDescription
+ * Some description here
+ * and here
+ */
+router.get('/:userId/following', verifyToken, usersController.getFollowing)
 
-// /**
-//  * @apiGroup Users
-//  * @api {POST} /api/users/:userId/follow Follow an user
-//  * @apiDescription
-//  * Some description here
-//  * and here
-//  */
-// router.post('/:userId/follow', verifyToken, usersController.newFollow)
+/**
+ * @apiGroup Users
+ * @api {POST} /api/users/:userId/follow Follow an user
+ * @apiDescription
+ * Some description here
+ * and here
+ */
+router.post('/:userId/follow', verifyToken, usersController.newFollow)
 
 // /**
 //  * @apiGroup Users

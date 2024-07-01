@@ -145,3 +145,151 @@ export const deleteUser = async (req, res) => {
       .send({ status: 'FAILED', data: { error: err?.message || err } })
   }
 }
+
+/**
+ * @description Get all posts from an user
+ * @author Juan Carlos Cuadrado Gracia <jccuadradogracia@gmail.com>
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ * @return {Object} Posts requested
+ */
+export const getUserPosts = async (req, res) => {
+  const { params } = req
+  // Check request params parameters
+  if (!params.userId) {
+    res.status(400).send({
+      status: 'FAILED',
+      data: {
+        error: 'User id not provided'
+      }
+    })
+    return
+  }
+  const userId = req.params.userId
+  try {
+    // Class service instance
+    const usersService = new UsersService()
+    const getUserPosts = await usersService.getUserPosts(userId)
+
+    // All correct
+    res.status(201).send({ status: 'OK', data: getUserPosts })
+  } catch (err) {
+    res
+      .status(err?.status || 500)
+      .send({ status: 'FAILED', data: { error: err?.message || err } })
+  }
+}
+
+/**
+ * @description Get followers from an user
+ * @author Juan Carlos Cuadrado Gracia <jccuadradogracia@gmail.com>
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ * @return {Object} Users requested
+ */
+export const getFollowers = async (req, res) => {
+  const { params } = req
+  // Check request params parameters
+  if (!params.userId) {
+    res.status(400).send({
+      status: 'FAILED',
+      data: {
+        error: 'User id not provided'
+      }
+    })
+    return
+  }
+  const userId = req.params.userId
+  try {
+    // Class service instance
+    const usersService = new UsersService()
+    const getFollowers = await usersService.getFollowers(userId)
+
+    // All correct
+    res.status(201).send({ status: 'OK', data: getFollowers })
+  } catch (err) {
+    res
+      .status(err?.status || 500)
+      .send({ status: 'FAILED', data: { error: err?.message || err } })
+  }
+}
+
+/**
+ * @description Get followings from an user
+ * @author Juan Carlos Cuadrado Gracia <jccuadradogracia@gmail.com>
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ * @return {Object} Users requested
+ */
+export const getFollowing = async (req, res) => {
+  const { params } = req
+  // Check request params parameters
+  if (!params.userId) {
+    res.status(400).send({
+      status: 'FAILED',
+      data: {
+        error: 'User id not provided'
+      }
+    })
+    return
+  }
+  const userId = req.params.userId
+  try {
+    // Class service instance
+    const usersService = new UsersService()
+    const getFollowing = await usersService.getFollowing(userId)
+
+    // All correct
+    res.status(201).send({ status: 'OK', data: getFollowing })
+  } catch (err) {
+    res
+      .status(err?.status || 500)
+      .send({ status: 'FAILED', data: { error: err?.message || err } })
+  }
+}
+
+/**
+ * @description Follow an user
+ * @author Juan Carlos Cuadrado Gracia <jccuadradogracia@gmail.com>
+ * @param {object} req - Request object
+ * @param {object} res - Response object
+ * @return {Object} Users requested
+ */
+export const newFollow = async (req, res) => {
+  const { params } = req
+  const { body } = req
+  // Check request params parameters
+  if (!params.userId) {
+    res.status(400).send({
+      status: 'FAILED',
+      data: {
+        error: 'User id not provided'
+      }
+    })
+    return
+  }
+  // Check body parameters
+  if (!body.id) {
+    res.status(400).send({
+      status: 'FAILED',
+      data: {
+        error: 'Any userId provided to follow'
+      }
+    })
+    return
+  }
+  const userId = req.params.userId
+  const userIdToFollow = body.id
+  try {
+    // Class service instance
+    const usersService = new UsersService()
+    const newFollow = await usersService.newFollow(userId, userIdToFollow)
+
+    // All correct
+    res.status(201).send({ status: 'OK', data: newFollow })
+  } catch (err) {
+    res
+      .status(err?.status || 500)
+      .send({ status: 'FAILED', data: { error: err?.message || err } })
+  }
+}

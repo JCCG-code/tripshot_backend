@@ -11,15 +11,22 @@ class PostsService {
   /**
    * @description Allows to get all saved posts
    * @author Juan Carlos Cuadrado Gracia <jccuadradogracia@gmail.com>
+   * @param {number} offset - offset query
+   * @param {number} limit - limit query
    * @return {Object} - Returns all saved posts. Throws error in other case
    * @memberof PostsService
    */
-  async getPosts() {
+  async getPosts(offset, limit) {
     try {
       // Request all posts to database
-      const resPosts = await Post.find({})
+      const resPosts = await Post.find()
+        .skip(offset)
+        .limit(limit)
+        .sort({ createdAt: -1 })
+      // Get count posts
+      const countPosts = await Post.countDocuments()
       // Send response
-      return { resPosts }
+      return { resPosts, countPosts }
     } catch (error) {
       throw new HttpError({
         status: error?.status || 500,
@@ -45,6 +52,7 @@ class PostsService {
           message: 'This userId does not match any user in our system.'
         })
       }
+      console.log(post)
       // Save new post
       const newPost = await new Post(post).save()
       // Send response
@@ -149,5 +157,16 @@ class PostsService {
     }
   }
 }
+
+// /**
+//  * @description Allows to get the username based on user id
+//  * @author Juan Carlos Cuadrado Gracia <jccuadradogracia@gmail.com>
+//  * @param {mongoose.Types.ObjectId} userId - an user id
+//  * @return {string} the username
+//  */
+// async function getUsernameById(userId) {
+//   const user = User.findOne({ _id: userId })
+//   return user.username
+// }
 
 export default PostsService

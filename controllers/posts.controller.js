@@ -3,15 +3,19 @@ import PostsService from '../services/posts.service.js'
 
 /**
  * @description Allows to get all posts
- * @param {object} _req - Request object
+ * @param {object} req - Request object
  * @param {object} res - Response object
  * @return {json} adawd
  */
-export const getPosts = async (_req, res) => {
+export const getPosts = async (req, res) => {
+  const { query } = req
+  // Extract offset and limit values
+  const offset = parseInt(query.offset) || 0
+  const limit = parseInt(query.limit) || 2
   try {
     // Class service instance
     const postsService = new PostsService()
-    const getPosts = await postsService.getPosts()
+    const getPosts = await postsService.getPosts(offset, limit)
 
     // All correct
     res.status(200).send({ status: 'OK', data: getPosts })

@@ -40,8 +40,8 @@ class AuthService {
         ),
         profilePicture: '',
         bio: '',
-        followers: null,
-        following: null,
+        followers: [],
+        following: [],
         role: ['client']
       }
       const userSaved = await new User(newUser).save()
